@@ -1,0 +1,19 @@
+/* Add these styles in your tailwind.config.js or global CSS file */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  .search-input {
+    @apply border border-gray-300 rounded-md p-2 w-2/3 md:w-1/3 focus:outline-none focus:ring-2 focus:ring-blue-400;
+  }
+  .search-button {
+    @apply bg-blue-500 text-white p-2 rounded-md ml-2 hover:bg-blue-600;
+  }
+  .restaurant-list {
+    @apply flex flex-wrap justify-center gap-4 p-5;
+  }
+  .restaurant-card {
+    @apply w-full h-36 bg-gray-200 rounded-md animate-shimmer bg-gradient-to-r from-gray-200 via-gray-300 to-gray-200 bg-[length:200%_100%];
+  }
+}
