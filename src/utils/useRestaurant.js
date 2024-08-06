@@ -6,8 +6,6 @@ const Restaurant=(id)=>{
    const [loading, setLoading] = useState(true);
    const [error, setError] = useState(null);
 
-  
-
    useEffect(() => {
     getRestaurantInfo();
   }, [id]);

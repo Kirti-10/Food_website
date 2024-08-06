@@ -7,13 +7,12 @@ import { Footer } from "./components/Footer";
 import {createBrowserRouter,RouterProvider,Outlet} from "react-router-dom"
 import Error from "./components/Error";
 import Contact from "./components/Contact";
-//import RestaurantMenu from "./components/RestaurantMenu";
-
-import Shimmer from "./components/Shimmer";
+//import RestaurantMenu from "./components/RestaurantMenu";3
 import Cart from "./components/Cart";
-import appStore from "./utils/appStore";
+import Shimmer from "./components/Shimmer";
+import store from "./utils/store";
 import { useState } from "react";
-import { Provider } from 'react-redux';
+import { Provider } from 'react-redux'; //for connecting react to store we use react-redux 
 import UserContext from "./utils/UserContext";
 //import Instamart from "./components/Instamart";=>now make in terms of lazy loading bc
 //import RestaurantMenu from "./components/RestaurantMenu";
@@ -34,7 +33,7 @@ const AppLayout=()=>{
       setUserName(data.name);
     }, []);
     return(
-        <Provider store={appStore}>
+        <Provider store={store}>
       <UserContext.Provider value={{ loggedInUser: userName, setUserName }}>
         <div className="app">
           <Header />

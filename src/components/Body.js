@@ -68,7 +68,7 @@ const Body = () => {
       </div>
       <div className="flex flex-wrap justify-center">
         {loading ? (
-          <Shimmer/>
+          <Shimmer />
         ) : filteredRestaurants.length > 0 ? (
           filteredRestaurants.map((restaurant) => (
             <Link to={`/restaurant/${restaurant?.info?.id}`} key={restaurant.info.id} className="m-4">
@@ -81,6 +81,6 @@ const Body = () => {
       </div>
     </div>
   );
-};  
+};
 
 export default Body;

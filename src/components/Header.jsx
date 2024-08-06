@@ -13,7 +13,6 @@ const Logo = () => (
     />
   </Link>
 );
-
 const Header = () => {
   const isOnline = useOnline();
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -26,7 +25,7 @@ const Header = () => {
 
   return (
     <header className="bg-white shadow-md">
-      <div className="container mx-auto py-4 px-6 flex justify-between items-center">
+      <div className="container mx-auto py-2 px-6 flex justify-between items-center">
         <Logo />
         <nav className="space-x-6">
           <Link to="/" className="text-gray-600 text-xl hover:text-orange-600 transition-colors duration-300">
@@ -46,14 +45,14 @@ const Header = () => {
         <div>
           {isLoggedIn ? (
             <button
-              className="bg-red-500 text-white py-2 px-4 rounded hover:bg-red-600 transition-colors duration-300"
+              className="bg-red-500 text-white text-xl  py-2 px-4 rounded-xl hover:bg-red-600 transition-colors duration-300"
               onClick={() => setIsLoggedIn(false)}
             >
               Logout
             </button>
           ) : (
             <button
-              className="bg-orange-500 text-white py-2 px-4 rounded hover:bg-red-400-600 transition-colors duration-300"
+              className="bg-orange-500 text-white text-xl  py-2 px-4 rounded-xl hover:bg-red-400-600 transition-colors duration-300"
               onClick={() => setIsLoggedIn(true)}
             >
               Login

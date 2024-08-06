@@ -5,50 +5,45 @@ import useRestaurant from "../utils/useRestaurant";
 import MenuShimmer from "./shimmmer_menu";
 import { useDispatch } from "react-redux";
 import { addItem } from "../utils/cartSlice";
-import Cart from "./Cart";
-import FoodItem from "./FoodItem";
+
 
 function filterData(searchInput, foodItems) {
   return foodItems?.filter((foodItem) =>
-    foodItem?.toLowerCase()?.includes(searchInput?.toLowerCase())
+    foodItem?.name?.toLowerCase()?.includes(searchInput?.toLowerCase())
   );
 }
 
-const RestaurantMenu = () => {
-
-  const dispatch=useDispatch();
-  
-
-  const addFoodItem=(name)=>{
-     dispatch(addItem(name));
-  };
+  const RestaurantMenu = () => {
+  const dispatch = useDispatch();
 
   const { id } = useParams();
   const restaurant = useRestaurant(id);
-  console.log(restaurant)
   const [filteredFoodItems, setFilteredFoodItems] = useState([]);
   const [searchInput, setSearchInput] = useState("");
   const [foodItems, setFoodItems] = useState([]);
   const [loading, setLoading] = useState(true);
 
+  const restaurantInfo = restaurant?.cards?.[2]?.card?.card?.info;
+
   useEffect(() => {
     if (restaurant) {
       const groupedCards = restaurant?.cards?.find((card) => card.groupedCard)?.groupedCard?.cardGroupMap?.REGULAR?.cards;
       const items = [];
+
       if (groupedCards) {
         groupedCards.forEach((card) => {
           if (card.card?.card?.itemCards) {
             card.card.card.itemCards.forEach((item) => {
-              items.push(item.card.info.name);
+              items.push(item.card.info);
             });
           }
         });
       }
       setFoodItems(items);
       setFilteredFoodItems(items);
-      setLoading(false); 
+      setLoading(false);
     }
-  }, [restaurant]);
+  }, [restaurantInfo?.id]);
 
   const handleSearchChange = (e) => {
     setSearchInput(e.target.value);
@@ -59,8 +54,9 @@ const RestaurantMenu = () => {
     setFilteredFoodItems(filteredData);
   };
 
-  const restaurantInfo = restaurant?.cards?.[2]?.card?.card?.info;
-  
+  const addFoodItem = (item) => {
+    dispatch(addItem(item));
+  };
 
   return (
     <>
@@ -68,7 +64,6 @@ const RestaurantMenu = () => {
         <MenuShimmer />
       ) : (
         <>
-        <FoodItem props={restaurantInfo}/>
           {restaurantInfo?.cloudinaryImageId && (
             <img
               className="restaurant-image w-full max-w-xs mx-auto rounded-lg shadow-md mb-4"
@@ -88,7 +83,7 @@ const RestaurantMenu = () => {
               className="bg-orange-400 text-white p-2 rounded-md ml-2 hover:bg-orange-500 transition duration-300 ease-in-out text-2xl"
               onClick={handleSearchClick}
             >
-              search
+              Search
             </button>
           </div>
           <div className="restaurant-details text-center p-5">
@@ -102,10 +97,10 @@ const RestaurantMenu = () => {
           <div className="menu p-5">
             <h1 className="text-3xl font-semibold mb-4">Menu</h1>
             <ul className="menu-list grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-              {filteredFoodItems.map((name, index) => (
+              {filteredFoodItems.map((item, index) => (
                 <li key={index} className="menu-item p-4 bg-white rounded-lg shadow hover:bg-gray-100 transition duration-300 ease-in-out">
-                  <span className="text-lg font-normal text-gray-800">{name}</span>
-                  <button className="p-2 bg-purple-100 rounded-sm m-2"  onClick={()=>addFoodItem(name)}>Add</button>
+                  <span className="text-lg font-normal text-gray-800">{item.name}</span>
+                  <button className="p-2 bg-purple-100 rounded-sm m-2" onClick={() => addFoodItem(item)}>Add</button>
                 </li>
               ))}
             </ul>
